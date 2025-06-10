@@ -55,12 +55,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 body {
-  background: #db2e34;
+  background: #0e1217;
   text-align: center;
   line-height: 1.5;
   font-family: "Trebuchet MS";
   color: white;
-  font-size: 112.5%;
+  font-size: 100%;
   position: relative;
 }
 body h1, body h2, body h3, body h4, body h5, body h6 {
@@ -220,7 +220,7 @@ body .nowrap {
 }
 body .clearfix {
   overflow: hidden;
-  *zoom: 1;
+  zoom: 1;
 }
 body .small {
   font-size: 0.8em;
@@ -324,18 +324,17 @@ nav#menu {
   font-family: "DinnCondensed";
   z-index: 30;
   text-align: center;
-  background: #a11c20;
+  background: #1C1F26;
   font-size: 1.4em;
   display: block;
-  margin: 20px auto;
 }
 nav#menu a {
   color: #ffffff;
   padding: .3em;
   text-decoration: none;
-  text-shadow: #8b181c 1px -1px 0px;
+  text-shadow: #1C1F26 1px -1px 0px;
   display: inline-block;
-  margin: 5px 20px;
+  margin: 15px 10px;
   border: 1px solid #ffffff;
   -webkit-transition-property: color;
   -moz-transition-property: color;
@@ -365,7 +364,7 @@ nav#menu a.selected {
 #content {
   position: relative;
   max-width: 800px;
-  margin: 0px auto;
+  margin: 2px auto;
   margin-top: 60px;
   padding-bottom: 20px;
   z-index: 100;
@@ -376,11 +375,11 @@ nav#menu a.selected {
 #content .content {
   max-width: 600px;
   margin: 0px auto;
-  padding: 10px;
+  padding: 5%;
 }
 #content h1, #content h2, #content h3 {
   font-family: "DinnCondensed";
-  text-shadow: #8b181c 1px -1px 0px;
+  text-shadow: #1C1F26 1px -1px 0px;
 }
 #content h1 {
   font-size: 3.5em;
@@ -398,7 +397,7 @@ nav#menu a.selected {
   width: 100%;
   text-align: center;
   font-size: 40px;
-  text-shadow: #8b181c 1px -1px 0px;
+  text-shadow: #1C1F26 1px -1px 0px;
   font-family: "DinnCondensed";
 }
 
@@ -407,7 +406,7 @@ nav#menu a.selected {
 }
 
 #content ul {
-  list-style-type: none;
+  list-style-type: disc;
 }
 #content ul li {
   margin: 5px 0px;
@@ -545,29 +544,21 @@ form input[type=submit]:active {
   -moz-box-shadow: inset 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0px 0px 3px 3px rgba(0, 0, 0, 0.1);
 }
-
 .container {
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   text-align: center;
-  
 }
 
-dl.ddl{
-  padding: 5%;
-}
-dd{
-  margin-top: 1%;
-  margin-bottom: 1%;
-  padding: 2.5%;
-  background-color: #a11c20;
-  border-radius: 5px;
-}
-
-.ddl {
+.card {
+  margin-bottom: 5%;
+  padding: 8%;
   display: table-cell;
-  text-align: left; /* Alinea al lado izquierdo */
-  border: 1px solid #ffffff;
-  border-radius: 20px;
+  text-align: left;
+  /* border: 1px solid #ffffff;*/
+  border-radius: 5px; 
+  background: #1C1F26;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   text-transform: inherit;
 }
