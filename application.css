@@ -556,8 +556,15 @@ form input[type=submit]:active {
 dl.ddl{
   padding: 5%;
 }
+dd{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  padding: 2.5%;
+  background-color: #a11c20;
+  border-radius: 5px;
+}
 
-.dtd, .ddl {
+.ddl {
   display: table-cell;
   text-align: left; /* Alinea al lado izquierdo */
   border: 1px solid #ffffff;
