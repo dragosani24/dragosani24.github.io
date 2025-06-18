@@ -131,7 +131,7 @@ summary {
 }
 
 body {
-  background: #db2e34;
+  background: #1f1f1f;
   text-align: center;
   line-height: 1.5;
   color: white;
@@ -267,7 +267,7 @@ body del {
 
 body pre {
   margin: 1.5em 0;
-  white-space: pre;
+  black-space: pre;
 }
 
 body pre,
@@ -322,7 +322,7 @@ body caption {
 }
 
 body .quiet {
-  color: white;
+  color: black;
 }
 
 body .loud {
@@ -334,7 +334,7 @@ body .clear {
 }
 
 body .nowrap {
-  white-space: nowrap;
+  black-space: nowrap;
 }
 
 body .clearfix {
@@ -437,12 +437,12 @@ body .highlight {
 
 body .added {
   background: #006600;
-  color: white;
+  color: black;
 }
 
 body .removed {
   background: #990000;
-  color: white;
+  color: black;
 }
 
 li a {
@@ -479,19 +479,19 @@ nav#menu {
   display: flex;
   z-index: 30;
   text-align: center;
-  background: #a11c20;
+  background: #181818;
   font-size: 1.4em;
   display: block;
 }
 
 nav#menu a {
-  color: #ffffff;
+  color: white;
   padding: .3em;
   text-decoration: none;
-  text-shadow: #a11c20 1px -1px 0px;
+  text-shadow: #181818 1px -1px 0px;
   display: inline-block;
   margin: 15px 10px;
-  border: 1px solid #ffffff;
+  border: 1px solid white;
   -webkit-transition-property: color;
   -moz-transition-property: color;
   transition-property: color;
@@ -518,7 +518,7 @@ nav#menu a:hover {
 }
 
 nav#menu a.selected {
-  color: white;
+  color: black;
 }
 
 #content {
@@ -543,7 +543,7 @@ nav#menu a.selected {
 #content h1,
 #content h2,
 #content h3 {
-  text-shadow: #a11c20 1px -1px 0px;
+  text-shadow: #181818 1px -1px 0px;
 }
 
 #content h1 {
@@ -565,7 +565,7 @@ nav#menu a.selected {
   width: 100%;
   text-align: center;
   font-size: 40px;
-  text-shadow: #a11c20 1px -1px 0px;
+  text-shadow: #181818 1px -1px 0px;
 }
 
 #content p {
@@ -708,8 +708,8 @@ form input[type=submit] {
   border: 1px solid #8b181c;
   padding: 10px;
   font-size: 1.1em;
-  background: #a11c20;
-  color: white;
+  background: #181818;
+  color: black;
   text-shadow: #8b181c 1px -1px 0px;
   cursor: pointer;
   -webkit-border-radius: 5px;
@@ -744,11 +744,34 @@ form input[type=submit]:active {
   text-align: left;
   /* border: 1px solid #ffffff;*/
   border-radius: 5px;
-  background: #a11c20;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background: #22333b;
+  box-shadow: 0 5px 15px rgba(46, 46, 46, 0.438);
   text-transform: inherit;
+  color: white;
+  border: 1px solid white;
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+  color: white;
+}
+
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+  color: whitesmoke;
+}
+
+footer div {
+  color: white;
+}
+
+footer a {
+  color: white;
+}
+
+footer a {
+  border-color: white;
 }
 
 .card h3{
-  border-bottom: 1px solid #ffffff;
+  padding: 10px;
+  border-bottom: 1px solid white;
 }
