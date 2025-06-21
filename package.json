@@ -4,7 +4,7 @@
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
-    "vite": "^4.6.0"
+    "vite": "^5.2.0"
   },
   "scripts": {
     "build": "vite build",
@@ -13,7 +13,7 @@
   "type": "module",
   "name": "santiagoav-project",
   "version": "1.0.0",
-  "description": "A simple project using Tailwind CSS with Vite",
+  "description": "Mi pagina web personal con Tailwind CSS y Vite",
   "license": "MIT",
   "author": "Santiago AV"  
 }

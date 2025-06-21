@@ -6,7 +6,7 @@ export default defineConfig({
   ],
   server: {
     allowedHosts: [
-      'ear-cached-monitors-crops.trycloudflare.com'
+      'greater-leaves-personnel-delivers.trycloudflare.com'
     ]
   }
 })

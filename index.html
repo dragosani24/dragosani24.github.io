@@ -1,107 +1,736 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-  <title>Santiago AV | Desarrollador Full-Stack</title>
+  <title>Santiago AV | Desarrollador Full-Stack & Especialista en IA</title>
   <meta charset="utf-8" />
-  <link rel="stylesheet" href="/application.css" type="text/css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script src="https://kit.fontawesome.com/4f88c2ddae.js" crossorigin="anonymous"></script>
-  <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+  <meta name="description" content="Desarrollador Full-Stack especializado en IA y Soluciones Cloud. Transformación digital con tecnologías modernas.">
+  <meta name="keywords" content="desarrollador fullstack, IA, cloud, laravel, vue, kotlin, aws, transformación digital">
+  <meta name="author" content="Santiago AV">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --dark: #181818;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --gray-light: #e2e8f0;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    
+    /* Asegura que nada se desborde horizontalmente */
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    
+    /* Haz que todos los elementos hijos respeten el ancho del viewport */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      max-width: 100%;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: var(--light);
+    }
+    
+    section, .hero, .contact-form, .card, .footer-content {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    nav {
+      background-color: var(--dark);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 1.5rem;
+      font-weight: 500;
+      transition: color 0.3s;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+    
+    .hero h2 {
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+    
+    .hero p {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+      opacity: 0.85;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: var(--primary);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      margin: 0.5rem;
+    }
+    
+    .cta-button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .cta-button.outline {
+      background-color: transparent;
+      border: 1px solid white;
+    }
+    
+    .cta-button.outline:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    /* Content Sections */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background-color: var(--primary);
+    }
+    
+    /* About Section */
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .profile-image {
+      flex: 1;
+      min-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    
+    .about-text {
+      flex: 2;
+      min-width: 300px;
+    }
+    
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .skill-tag {
+      background-color: var(--gray-light);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    
+    /* Services */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .card h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+    }
+    
+    .card ul {
+      list-style-position: inside;
+      padding-left: 0;
+    }
+    
+    .card li {
+      margin-bottom: 0.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .card li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+    }
+    
+    /* Separator */
+    .separator {
+      text-align: center;
+      margin: 3rem 0;
+      color: var(--gray);
+      letter-spacing: 5px;
+    }
+    
+    /* Contact Form */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--gray-light);
+      border-radius: 4px;
+      font-family: inherit;
+    }
+    
+    .form-group textarea {
+      min-height: 150px;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--dark);
+      color: white;
+      padding: 3rem 2rem;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background-color: var(--primary);
+    }
+    
+    .footer-column ul {
+      list-style: none;
+    }
+    
+    .footer-column li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-column a {
+      color: var(--gray-light);
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .footer-column a:hover {
+      color: var(--primary);
+    }
+    
+    .footer-column i {
+      width: 20px;
+      text-align: center;
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem;
+        text-align: center;
+      }
+      
+      nav a {
+        margin: 0 0.5rem;
+        font-size: 0.9rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.2rem;
+      }
+      
+      .about-content {
+        flex-direction: column;
+      }
+      
+      .profile-image {
+        margin-bottom: 2rem;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      body, section, .hero, .container, .footer-content, .contact-form, .card {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+      nav {
+        padding: 1rem 0.5rem !important;
+        width: 100vw !important;
+        box-sizing: border-box;
+      }
+      nav a {
+        font-size: 1rem;
+        word-break: break-word;
+      }
+      .hero {
+        padding: 2.5rem 0.5rem;
+      }
+      section {
+        padding: 2rem 0.5rem;
+      }
+      .section-title h2 {
+        font-size: 1.3rem;
+        word-break: break-word;
+      }
+      .about-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .profile-image, .about-text {
+        min-width: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .skills {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .container, .footer-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+      }
+      .card, .contact-form {
+        padding: 1rem !important;
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+      nav {
+        padding: 1rem 0.5rem !important;
+      }
+      nav a {
+        font-size: 1rem;
+        word-break: break-word;
+      }
+    }
+    
+    /* Mejora la accesibilidad de botones */
+    .cta-button, button, input[type="submit"] {
+      font-size: 1rem;
+      min-height: 44px;
+    }
+    
+    /* Cambia el color del ícono de la hamburguesa */
+    .menu-toggle i {
+      color: var(--primary); /* Cambia a cualquier color que prefieras, por ejemplo: #2563eb */
+    }
+  </style>
 </head>
 
-<body class="font-sans">
-  <nav id="menu">
-    <a href="#acerca-de-mi" class="">
-      Acerca de mí
-    </a>
-    <a href="#servicios" class="">
-      Servicios
-    </a>
-    <a href="#contacto" class="">
-      Contacto
-    </a>
+<body>
+  <!-- Navbar -->
+  <nav id="menu-toggle">
+    <a href="#inicio">Inicio</a>
+    <a href="#acerca-de-mi">Acerca de mí</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#tecnologias">Tecnologías</a>
+    <a href="#contacto">Contacto</a>
   </nav>
 
-  <section id="content">
-    <div class="content">
-      <hgroup id="acerca-de-mi">
-        <!-- <img src="https://avatars.githubusercontent.com/u/3760071?v=4" alt="Santiago AV" class="profile-image"> -->
-        <h2 class="font-stretch-extra-condensed">Mi nombre es Santiago AV</h2>
-        <h3>Desarrollador Full-Stack</h3>
-        <h3>Especialista en IA y Soluciones Cloud</h3>
-        <h3>Transformación Digital Integral</h3>
-      </hgroup>
-      <p>Diseño y desarrollo ecosistemas digitales integrales: desde interfaces web intuitivas hasta sistemas backend
-        robustos y soluciones móviles potenciadas con inteligencia artificial. Con experiencia en Desarrollo Web Full
-        Stack, creo plataformas escalables que resuelven desafíos empresariales reales y generan valor tangible.</p>
-      <p>Impulso la transformación digital de negocios con soluciones tecnológicas a medida: desde sitios web atractivos
-        y funcionales hasta potentes sistemas backend y apps móviles con inteligencia artificial. Especialista en Full
-        Stack (Laravel/Vue.js), Android (Kotlin/Java), Cloud DevOps (AWS) y Visión Artificial (Amazon Rekognition), creo
-        plataformas escalables que mejoran la eficiencia, optimizan procesos y generan crecimiento real.</p>
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <h1>Santiago AV</h1>
+    <h2>Desarrollador Full-Stack & Especialista en IA</h2>
+    <p>Transformo ideas en soluciones digitales robustas, escalables y potenciadas con inteligencia artificial para impulsar el crecimiento de tu negocio.</p>
+    <div>
+      <a href="#contacto" class="cta-button">Contactar</a>
+      <a href="#servicios" class="cta-button outline">Ver Servicios</a>
+    </div>
+  </section>
 
-      <div id="separator">* * * *</div>
-
-      <h2 id="servicios">Servicios</h2>
-      <div class="container">
-        <div class="card">
-          <h3>Plataformas Web Empresariales</h3>
-          <ul>
-            <li>Desarrollo completo con dashboards en Laravel Nova + Vue.js.</li>
-            <li>Visualización de datos en tiempo real (gráficos/reportes) y sistemas de notificación.</li>
-            <li>Sistemas de gestión procesando 5,000+ transacciones diarias.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Soluciones con Inteligencia Artificial</h3>
-          <ul>
-            <li>Sistemas de reconocimiento facial.</li>
-            <li>Integración biométrica para web/android/dispositivos de terceros.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Infraestructura Cloud Optimizada</h3>
-          <ul>
-            <li>DevOps en AWS (EC2, Lambda, S3) con pipelines CI/CD.</li>
-            <li>Optimización de performance.</li>
-          </ul>
+  <!-- About Section -->
+  <section id="acerca-de-mi">
+    <div class="section-title">
+      <h2>Acerca de Mí</h2>
+    </div>
+    
+    <div class="about-content">
+      <div class="about-text">
+        <p>Soy un desarrollador Full-Stack con más de 8 años de experiencia creando soluciones tecnológicas innovadoras. Mi enfoque combina habilidades técnicas avanzadas con una comprensión profunda de las necesidades empresariales para ofrecer productos que generan valor real.</p>
+        
+        <p>Diseño y desarrollo ecosistemas digitales integrales: desde interfaces web intuitivas hasta sistemas backend robustos y soluciones móviles potenciadas con inteligencia artificial. Con experiencia en Desarrollo Web Full Stack, creo plataformas escalables que resuelven desafíos empresariales reales.</p>
+        
+        <p>Impulso la transformación digital de negocios con soluciones tecnológicas a medida: desde sitios web atractivos y funcionales hasta potentes sistemas backend y apps móviles con inteligencia artificial.</p>
+        
+        <div class="skills">
+          <span class="skill-tag">Full-Stack Development</span>
+          <span class="skill-tag">Inteligencia Artificial</span>
+          <span class="skill-tag">Cloud Solutions</span>
+          <span class="skill-tag">DevOps</span>
+          <span class="skill-tag">Laravel</span>
+          <span class="skill-tag">Vue.js</span>
+          <span class="skill-tag">Kotlin</span>
+          <span class="skill-tag">AWS</span>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="bg-[#181818]">
-      
-      <div class="flex flex-col md:flex-row justify-center">
-        <div class="p-3 text-sm/8 flex-1">
-            <h2 id="contacto"></h2>
-        </div>
-        <div class="text-left text-sm/8 p-3 flex-1">
-          <h3 id="">Menu</h3>
-          <ul class="list-none">
-            <li><a href="#acerca-de-mi" class="">
-                Acerca de mí
-              </a></li>
-            <li><a href="#servicios" class="">
-                Servicios
-              </a></li>
-            <li><a href="mailto:santiagoav@gmail.com"><i class="fa fa-envelope"></i> santiagoav@gmail.com</a></li>
-          </ul>
-        </div>
+  <div class="separator">✦ ✦ ✦ ✦</div>
 
-        <div class="text-left text-sm/8 p-3 flex-1">
-          <h3 id="">Redes Sociales</h3>
-          <ul class="list-none">
-            <li><a href="https://www.linkedin.com/in/santiagoav-0206" target="_blank"><i class="fa fa-linkedin"></i>
-                linkedin.com/in/santiagoav-0206</a></li>
-            <li><a href="https://github.com/dragosani24" target="_blank"><i class="fa fa-github"></i> github.com/dragosani24</a></li>
-            <li><a href="https://x.com/Dragosani24" target="_blank"><i class="fa-brands fa-x-twitter"></i> x.com/Dragosani24</a></li>
-            <li><a href="https://www.instagram.com/dragos24" target="_blank"><i class="fa fa-instagram"></i> instagram.com/dragos24</a>
-            </li>
-          </ul>
-        </div>
+  <!-- Services Section -->
+  <section id="servicios">
+    <div class="section-title">
+      <h2>Servicios</h2>
+    </div>
     
+    <div class="container">
+      <div class="card">
+        <h3>Plataformas Web Empresariales</h3>
+        <ul>
+          <li>Desarrollo completo con dashboards en Laravel Nova + Vue.js</li>
+          <li>Visualización de datos en tiempo real (gráficos/reportes)</li>
+          <li>Sistemas de notificación personalizados</li>
+          <li>Arquitecturas escalables para alto tráfico</li>
+          <li>Sistemas de gestión procesando 5,000+ transacciones diarias</li>
+        </ul>
       </div>
+      
+      <div class="card">
+        <h3>Soluciones con Inteligencia Artificial</h3>
+        <ul>
+          <li>Sistemas de reconocimiento facial y biométricos</li>
+          <li>Integración biométrica multiplataforma</li>
+          <li>Procesamiento de imágenes y visión por computadora</li>
+          <li>Chatbots inteligentes para atención al cliente</li>
+          <li>Análisis predictivo para negocios</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h3>Infraestructura Cloud Optimizada</h3>
+        <ul>
+          <li>DevOps en AWS (EC2, Lambda, S3, RDS)</li>
+          <li>Pipelines CI/CD automatizados</li>
+          <li>Optimización de performance y costos</li>
+          <li>Arquitecturas serverless</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Technologies Section -->
+  <section id="tecnologias">
+    <div class="section-title">
+      <h2>Tecnologías</h2>
+    </div>
+    
+    <div class="container">
+      <div class="card">
+        <h3>Frontend</h3>
+        <ul>
+          <li>Vue.js / React</li>
+          <li>Tailwind CSS</li>
+          <li>JavaScript / TypeScript</li>
+          <li>Web Components</li>
+          <li>PWA / AMP</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h3>Backend</h3>
+        <ul>
+          <li>Laravel / PHP</li>
+          <li>Node.js / Express</li>
+          <li>Python / Django</li>
+          <li>Bases de datos SQL/NoSQL</li>
+          <li>APIs REST / GraphQL</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h3>Mobile & Cloud</h3>
+        <ul>
+          <li>Kotlin / Java (Android)</li>
+          <li>Flutter / React Native</li>
+          <li>AWS / Google Cloud</li>
+          <li>Docker / Kubernetes</li>
+          <li>Terraform / Ansible</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contacto">
+    <div class="section-title">
+      <h2>Contacto</h2>
+    </div>
+    
+    <div class="contact-form">
+      <form id="form-contacto" action="https://formspree.io/f/santiagoav@gmail.com" method="POST">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="asunto">Asunto</label>
+          <input type="text" id="asunto" name="asunto" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+        
+        <button type="submit" class="cta-button" style="width: 100%;">Enviar Mensaje</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-column">
+        <h3>Santiago AV</h3>
+        <p>Desarrollador Full-Stack especializado en crear soluciones tecnológicas innovadoras que impulsan el crecimiento empresarial.</p>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Enlaces</h3>
+        <ul>
+          <li><a href="#inicio"><i class="fas fa-chevron-right"></i> Inicio</a></li>
+          <li><a href="#acerca-de-mi"><i class="fas fa-chevron-right"></i> Acerca de mí</a></li>
+          <li><a href="#servicios"><i class="fas fa-chevron-right"></i> Servicios</a></li>
+          <li><a href="#tecnologias"><i class="fas fa-chevron-right"></i> Tecnologías</a></li>
+          <li><a href="#contacto"><i class="fas fa-chevron-right"></i> Contacto</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contacto</h3>
+        <ul>
+          <li><a href="mailto:santiagoav@gmail.com"><i class="fas fa-envelope"></i> santiagoav@gmail.com</a></li>
+          <li><a href="tel:+1234567890"><i class="fas fa-phone"></i> +1 (234) 567-890</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Redes Sociales</h3>
+        <ul>
+          <li><a href="https://www.linkedin.com/in/santiagoav-0206" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+          <li><a href="https://github.com/dragosani24" target="_blank"><i class="fab fa-github"></i> GitHub</a></li>
+          <li><a href="https://x.com/Dragosani24" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+          <li><a href="https://www.instagram.com/dragos24" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; <span id="year"></span> Santiago AV. Todos los derechos reservados.
+    </div>
   </footer>
+
+  <script>
+    // Actualizar año en el footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+    
+    // Smooth scrolling para los enlaces del menú
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // Animación al hacer scroll
+    const observerOptions = {
+      threshold: 0.1
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('section, .card').forEach(section => {
+      observer.observe(section);
+    });
+    
+    // Menú hamburguesa para móviles
+    const nav = document.getElementById('menu');
+    const menuToggle = document.createElement('button');
+    menuToggle.className = 'menu-toggle';
+    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+    menuToggle.onclick = () => nav.classList.toggle('open');
+    nav.insertBefore(menuToggle, nav.firstChild);
+  </script>
 </body>
 </html>
