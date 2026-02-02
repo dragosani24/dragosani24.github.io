@@ -1,0 +1,10 @@
+/* App.css - Base styles */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: #1a1c1b;
+}
