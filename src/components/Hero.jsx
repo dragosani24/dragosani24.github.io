@@ -39,13 +39,7 @@ const Hero = () => {
         </p>
 
         <div className="hero-cta-group">
-          <a href="#contact" className="btn-primary" onClick={(e) => {
-            e.preventDefault();
-            document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-          }}>
-            {language === 'en' ? 'Get In Touch' : 'Contactar'}
-          </a>
-          <a href="#why-me" className="btn-secondary" onClick={(e) => {
+          <a href="#why-me" className="btn-primary" onClick={(e) => {
             e.preventDefault();
             document.querySelector('#why-me')?.scrollIntoView({ behavior: 'smooth' });
           }}>

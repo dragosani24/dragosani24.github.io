@@ -17,17 +17,13 @@ const Header = () => {
   }, []);
 
   const navigationEn = [
-    { name: 'About', href: '#about' },
     { name: 'Why Me', href: '#why-me' },
-    { name: 'Journey', href: '#journey' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Journey', href: '#journey' }
   ];
   
   const navigationEs = [
-    { name: 'Acerca', href: '#about' },
     { name: 'Por Qué', href: '#why-me' },
-    { name: 'Trayectoria', href: '#journey' },
-    { name: 'Contacto', href: '#contact' }
+    { name: 'Trayectoria', href: '#journey' }
   ];
   
   const navigation = language === 'en' ? navigationEn : navigationEs;
