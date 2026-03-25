@@ -8,6 +8,127 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/4f88c2ddae.js" crossorigin="anonymous"></script>
   <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+  <style>
+    /* Page Agent Chat Widget */
+    #page-agent-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 9999;
+      background: #22333b;
+      color: #fff;
+      border: 1px solid #fff;
+      border-radius: 50px;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 1em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+      transition: background 0.2s;
+    }
+    #page-agent-btn:hover { background: #2e4555; }
+
+    #page-agent-panel {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 28px;
+      z-index: 9998;
+      width: 340px;
+      max-height: 520px;
+      background: #181818;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+      flex-direction: column;
+      overflow: hidden;
+    }
+    #page-agent-panel.open { display: flex; }
+
+    #page-agent-header {
+      background: #22333b;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #444;
+    }
+    #page-agent-header span { font-size: 0.95em; color: #fff; }
+    #page-agent-close {
+      background: none;
+      border: none;
+      color: #aaa;
+      font-size: 1.3em;
+      cursor: pointer;
+      line-height: 1;
+    }
+    #page-agent-close:hover { color: #fff; }
+
+    #page-agent-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 200px;
+    }
+    .pa-msg {
+      max-width: 85%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.88em;
+      line-height: 1.5;
+      word-break: break-word;
+    }
+    .pa-msg.user {
+      align-self: flex-end;
+      background: #2e4555;
+      color: #fff;
+      border: 1px solid #3a5870;
+    }
+    .pa-msg.agent {
+      align-self: flex-start;
+      background: #22333b;
+      color: #e0e0e0;
+      border: 1px solid #3a4a55;
+    }
+    .pa-msg.typing { color: #888; font-style: italic; }
+
+    #page-agent-input-row {
+      display: flex;
+      border-top: 1px solid #444;
+      background: #121212;
+    }
+    #page-agent-input {
+      flex: 1;
+      background: #121212;
+      border: none;
+      color: #fff;
+      padding: 10px 14px;
+      font-size: 0.9em;
+      outline: none;
+    }
+    #page-agent-input::placeholder { color: #666; }
+    #page-agent-send {
+      background: #22333b;
+      border: none;
+      border-left: 1px solid #444;
+      color: #fff;
+      padding: 0 16px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: background 0.2s;
+    }
+    #page-agent-send:hover { background: #2e4555; }
+
+    @media (max-width: 480px) {
+      #page-agent-panel { width: calc(100vw - 24px); right: 12px; bottom: 80px; }
+      #page-agent-btn { right: 12px; bottom: 16px; }
+    }
+  </style>
 </head>
 
 <body class="font-sans">
@@ -103,5 +224,159 @@
     
       </div>
   </footer>
+  <!-- Page Agent: AI Chat Widget -->
+  <button id="page-agent-btn" onclick="pageAgent.toggle()" aria-label="Abrir asistente">
+    <span>🤖</span> <span>Asistente</span>
+  </button>
+
+  <div id="page-agent-panel" role="dialog" aria-label="Asistente IA">
+    <div id="page-agent-header">
+      <span>🤖 Asistente IA · Santiago AV</span>
+      <button id="page-agent-close" onclick="pageAgent.toggle()" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="page-agent-messages"></div>
+    <div id="page-agent-input-row">
+      <input id="page-agent-input" type="text" placeholder="Escribe tu pregunta…" autocomplete="off"
+        onkeydown="if(event.key==='Enter') pageAgent.send()" maxlength="500" />
+      <button id="page-agent-send" onclick="pageAgent.send()" aria-label="Enviar">➤</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // ── Configuration ──────────────────────────────────────────────────────
+      // To enable live AI responses, point AGENT_API_URL at a server-side proxy
+      // that injects the API key, then set AGENT_API_KEY to the proxy token.
+      // Never expose a real API key in client-side code on a public page.
+      // Leave AGENT_API_KEY empty to use built-in demo responses.
+      var AGENT_API_URL = 'https://api.together.xyz/v1/chat/completions';
+      var AGENT_API_KEY = '';          // use a server-side proxy token only
+      var AGENT_MODEL   = 'Qwen/Qwen2.5-72B-Instruct-Turbo';
+
+      var SYSTEM_PROMPT =
+        'Eres el asistente virtual de Santiago AV, Desarrollador Full-Stack especializado en ' +
+        'Laravel/Vue.js, Android (Kotlin/Java), Cloud DevOps (AWS) y Visión Artificial (Amazon Rekognition). ' +
+        'Responde en español de forma concisa y profesional sobre sus servicios, experiencia y habilidades. ' +
+        'Si te preguntan sobre algo fuera de ese ámbito, redirecciona amablemente a los servicios ofrecidos.';
+
+      var DEMO_RESPONSES = {
+        default: [
+          '¡Hola! Soy el asistente de Santiago AV. ¿En qué puedo ayudarte hoy?',
+          'Santiago desarrolla plataformas web con Laravel + Vue.js, apps Android, infraestructura en AWS y soluciones de Visión Artificial. ¿Qué te interesa?',
+          'Puedes contactar a Santiago en santiagoav@gmail.com o visitar su perfil en linkedin.com/in/santiagoav-0206. 😊'
+        ],
+        servicios: 'Santiago ofrece: Plataformas Web Empresariales (Laravel/Vue.js), Soluciones con IA (reconocimiento facial, biometría) e Infraestructura Cloud (AWS EC2/Lambda/S3 con CI/CD).',
+        contacto:  'Puedes escribir a santiagoav@gmail.com o conectar en LinkedIn: linkedin.com/in/santiagoav-0206',
+        precio:    'Para cotizaciones y precios, contáctate directamente con Santiago en santiagoav@gmail.com.',
+        laravel:   'Santiago trabaja con Laravel + Vue.js para crear plataformas con dashboards, reportes en tiempo real y sistemas capaces de procesar 5 000+ transacciones diarias.',
+        aws:       'En AWS, Santiago gestiona EC2, Lambda y S3, e implementa pipelines CI/CD para entregas rápidas y seguras.',
+        android:   'Desarrolla aplicaciones Android nativas en Kotlin y Java, incluyendo integración biométrica con sistemas de reconocimiento facial.',
+        ia:        'Implementa reconocimiento facial y sistemas biométricos usando Amazon Rekognition para web, Android y dispositivos de terceros.'
+      };
+
+      // ── State ──────────────────────────────────────────────────────────────
+      var history   = [];
+      var isOpen    = false;
+      var isThinking = false;
+
+      // ── DOM helpers ────────────────────────────────────────────────────────
+      function panel()    { return document.getElementById('page-agent-panel'); }
+      function msgBox()   { return document.getElementById('page-agent-messages'); }
+      function inputEl()  { return document.getElementById('page-agent-input'); }
+
+      function appendMsg(text, role) {
+        var div = document.createElement('div');
+        div.className = 'pa-msg ' + role;
+        div.textContent = text;
+        msgBox().appendChild(div);
+        msgBox().scrollTop = msgBox().scrollHeight;
+        return div;
+      }
+
+      // ── Demo response picker ───────────────────────────────────────────────
+      function demoResponse(text) {
+        var t = text.toLowerCase();
+        if (/servicio|ofrece|hace|trabaja/.test(t))  return DEMO_RESPONSES.servicios;
+        if (/contact|email|correo|escribir/.test(t)) return DEMO_RESPONSES.contacto;
+        if (/precio|costo|cuanto|tarifa/.test(t))    return DEMO_RESPONSES.precio;
+        if (/laravel|vue|web|dash/.test(t))          return DEMO_RESPONSES.laravel;
+        if (/aws|cloud|lambda|ec2|s3/.test(t))       return DEMO_RESPONSES.aws;
+        if (/android|kotlin|java|m[oó]vil/.test(t))   return DEMO_RESPONSES.android;
+        if (/ia|inteligencia|facial|biom/.test(t))   return DEMO_RESPONSES.ia;
+        var arr = DEMO_RESPONSES.default;
+        return arr[Math.floor(Math.random() * arr.length)];
+      }
+
+      // ── API call (OpenAI-compatible) ───────────────────────────────────────
+      function fetchAI(userText, typingEl) {
+        history.push({ role: 'user', content: userText });
+        var messages = [{ role: 'system', content: SYSTEM_PROMPT }].concat(history);
+
+        fetch(AGENT_API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + AGENT_API_KEY
+          },
+          body: JSON.stringify({ model: AGENT_MODEL, messages: messages, max_tokens: 300 })
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var reply = data.choices && data.choices[0] && data.choices[0].message
+            ? data.choices[0].message.content.trim()
+            : demoResponse(userText);
+          history.push({ role: 'assistant', content: reply });
+          typingEl.className = 'pa-msg agent';
+          typingEl.textContent = reply;
+          msgBox().scrollTop = msgBox().scrollHeight;
+        })
+        .catch(function () {
+          var reply = demoResponse(userText);
+          history.push({ role: 'assistant', content: reply });
+          typingEl.className = 'pa-msg agent';
+          typingEl.textContent = reply;
+          msgBox().scrollTop = msgBox().scrollHeight;
+        })
+        .finally(function () { isThinking = false; });
+      }
+
+      // ── Public API ─────────────────────────────────────────────────────────
+      window.pageAgent = {
+        toggle: function () {
+          isOpen = !isOpen;
+          if (isOpen) {
+            panel().classList.add('open');
+            if (msgBox().children.length === 0)
+              appendMsg('¡Hola! Soy el asistente de Santiago AV. ¿En qué puedo ayudarte?', 'agent');
+            setTimeout(function () { inputEl().focus(); }, 50);
+          } else {
+            panel().classList.remove('open');
+          }
+        },
+        send: function () {
+          if (isThinking) return;
+          var txt = inputEl().value.trim();
+          if (!txt) return;
+          appendMsg(txt, 'user');
+          inputEl().value = '';
+          isThinking = true;
+          var thinking = appendMsg('Escribiendo…', 'agent typing');
+          if (AGENT_API_KEY) {
+            fetchAI(txt, thinking);
+          } else {
+            setTimeout(function () {
+              var reply = demoResponse(txt);
+              history.push({ role: 'user', content: txt });
+              history.push({ role: 'assistant', content: reply });
+              thinking.className = 'pa-msg agent';
+              thinking.textContent = reply;
+              msgBox().scrollTop = msgBox().scrollHeight;
+              isThinking = false;
+            }, 600);
+          }
+        }
+      };
+    })();
+  </script>
 </body>
 </html>
