@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import LanguageToggle from './LanguageToggle';
 import { Menu, X } from 'lucide-react';
@@ -18,12 +18,18 @@ const Header = () => {
 
   const navigationEn = [
     { name: 'Why Me', href: '#why-me' },
-    { name: 'Journey', href: '#journey' }
+    { name: 'Journey', href: '#journey' },
+    { name: 'Skills', href: '#skills' },
+    { name: 'Education', href: '#education' },
+    { name: 'Contact', href: '#contact' }
   ];
   
   const navigationEs = [
     { name: 'Por Qué', href: '#why-me' },
-    { name: 'Trayectoria', href: '#journey' }
+    { name: 'Trayectoria', href: '#journey' },
+    { name: 'Habilidades', href: '#skills' },
+    { name: 'Educación', href: '#education' },
+    { name: 'Contacto', href: '#contact' }
   ];
   
   const navigation = language === 'en' ? navigationEn : navigationEs;
@@ -40,7 +46,7 @@ const Header = () => {
   return (
     <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="header-container">
-        <a href="#" className="logo-link" onClick={(e) => handleNavClick(e, '#hero')}>
+        <a href="#hero" className="logo-link" onClick={(e) => handleNavClick(e, '#hero')}>
           <span className="logo-text">SA</span>
         </a>
 
@@ -64,6 +70,8 @@ const Header = () => {
             className="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -72,7 +80,7 @@ const Header = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <nav className="mobile-nav">
+        <nav id="mobile-nav" className="mobile-nav">
           {navigation.map((item) => (
             <a
               key={item.name}

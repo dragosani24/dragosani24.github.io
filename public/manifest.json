@@ -1,0 +1,27 @@
+{
+  "short_name": "Santiago Avilés",
+  "name": "Santiago Avilés Vázquez — Full Stack Developer",
+  "description": "Portafolio de Santiago Avilés Vázquez, Full Stack Developer (Laravel, Vue.js, React, AWS, CI/CD).",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "32x32 64x64 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1a1c1b",
+  "background_color": "#1a1c1b"
+}

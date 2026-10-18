@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { personalInfo, footer } from '../data/mock';
 import { Linkedin, Github, Mail, Phone } from 'lucide-react';

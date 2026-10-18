@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
-import { contact } from '../data/mock';
+import { contact, personalInfo } from '../data/mock';
 import { useToast } from '../hooks/use-toast';
+
+// Endpoint opcional (Formspree, Web3Forms, backend propio...).
+// Si NO está definido, el formulario abre el cliente de correo con el mensaje precargado.
+const CONTACT_ENDPOINT = process.env.REACT_APP_CONTACT_ENDPOINT;
 
 const ContactForm = () => {
   const { language } = useLanguage();
   const content = contact[language];
   const { toast } = useToast();
-  
+
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,20 +25,36 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const submissions = JSON.parse(localStorage.getItem('contact-submissions') || '[]');
-      submissions.push({ ...formData, timestamp: new Date().toISOString() });
-      localStorage.setItem('contact-submissions', JSON.stringify(submissions));
-
-      toast({
-        title: language === 'en' ? 'Success!' : '¡Éxito!',
-        description: content.formSuccess,
-        duration: 5000,
-      });
+      if (CONTACT_ENDPOINT) {
+        const response = await fetch(CONTACT_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+        toast({
+          title: language === 'en' ? 'Success!' : '¡Éxito!',
+          description: content.formSuccess,
+          duration: 5000,
+        });
+      } else {
+        // Sin backend configurado: abrimos el cliente de correo del usuario
+        const subject = encodeURIComponent(`${content.formName}: ${formData.name}`);
+        const body = encodeURIComponent(
+          `${formData.message}\n\n— ${formData.name} (${formData.email})`
+        );
+        window.location.href = `mailto:${personalInfo[language].email}?subject=${subject}&body=${body}`;
+        toast({
+          title: language === 'en' ? 'Email client' : 'Correo electrónico',
+          description: content.formOpenEmail,
+          duration: 5000,
+        });
+      }
 
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch {
       toast({
         title: language === 'en' ? 'Error' : 'Error',
         description: content.formError,

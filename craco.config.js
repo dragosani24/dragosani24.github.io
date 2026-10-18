@@ -42,14 +42,21 @@ const webpackConfig = {
       },
     },
   },
+  // Jest: alias "@" igual que en webpack (sin esto los tests no resuelven @/hooks, @/lib...)
+  jest: {
+    configure: {
+      moduleNameMapper: {
+        '^@/(.*)$': '<rootDir>/src/$1',
+      },
+    },
+  },
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
     configure: (webpackConfig) => {
-
       // Add ignored patterns to reduce watched directories
-        webpackConfig.watchOptions = {
+      webpackConfig.watchOptions = {
           ...webpackConfig.watchOptions,
           ignored: [
             '**/node_modules/**',

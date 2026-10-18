@@ -609,7 +609,8 @@ const babelMetadataPlugin = ({ types: t }) => {
   /**
    * Analyzes a member expression like item.name or obj.prop.value
    */
-  function analyzeMemberExpression(exprPath, state) {
+  function analyzeMemberExpression(exprPath, state, options = {}) {
+    if (!exprPath || !exprPath.node) return null;
     const node = exprPath.node;
 
     // Build the property path (e.g., "name" or "address.city")
@@ -627,7 +628,7 @@ const babelMetadataPlugin = ({ types: t }) => {
       const rootName = rootObj.name;
 
       // Check if we're inside an array iteration (like .map())
-      const arrayContext = getArrayIterationContext(exprPath, state);
+      const arrayContext = !options.skipArrayContext ? getArrayIterationContext(exprPath, state) : null;
 
       if (arrayContext && arrayContext.itemParam === rootName) {
         // This is item.property where item comes from array.map(item => ...)
@@ -645,7 +646,7 @@ const babelMetadataPlugin = ({ types: t }) => {
       }
 
       // Analyze the root identifier
-      const rootInfo = analyzeIdentifier(rootName, exprPath, state);
+      const rootInfo = analyzeIdentifier(rootName, exprPath, state, options);
       if (rootInfo) {
         return {
           ...rootInfo,
@@ -862,7 +863,10 @@ const babelMetadataPlugin = ({ types: t }) => {
           if (!localName) return;
 
           // Search for usages of this component
-          importPath.parentPath.parentPath.traverse({
+          const targetPath = importPath.parentPath?.parentPath || importPath.parentPath;
+          if (!targetPath || typeof targetPath.traverse !== "function") return;
+
+          targetPath.traverse({
             JSXOpeningElement(jsxPath) {
               if (result) return;
 
@@ -972,7 +976,8 @@ const babelMetadataPlugin = ({ types: t }) => {
       // Handle cases like data.items.map(...)
       const memberInfo = analyzeMemberExpression(
         callExprParent.get("callee.object"),
-        state
+        state,
+        { skipArrayContext: true }
       );
       if (memberInfo) {
         arrayVar = memberInfo.varName;

@@ -1,0 +1,56 @@
+name: CI y despliegue
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Tests
+        run: npm test -- --watchAll=false
+        env:
+          CI: "true"
+
+      - name: Compilar
+        run: npm run build
+
+      - name: Publicar build en docs/ (GitHub Pages)
+        if: github.event_name == 'push' && !github.event.pull_request
+        run: |
+          rm -rf docs/static
+          rm -f docs/index.html docs/asset-manifest.json
+          cp -r build/. docs/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs
+          if git diff --cached --quiet; then
+            echo "docs/ ya está actualizado; nada que publicar."
+          else
+            git commit -m "chore(deploy): build ${{ github.sha }} publicado en docs/"
+            git push
+          fi

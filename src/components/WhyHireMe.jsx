@@ -1,7 +1,6 @@
-import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { getBenefitsData } from '../data/mock';
-import { TrendingUp, Code, Brain, Cloud, Layers, Users } from 'lucide-react';
+import { TrendingUp, Code, Brain, Cloud, Layers, Smartphone, ShieldCheck } from 'lucide-react';
 
 const WhyHireMe = () => {
   const { language } = useLanguage();
@@ -12,11 +11,11 @@ const WhyHireMe = () => {
   const getIcon = (metric) => {
     if (metric === '80%') return TrendingUp;
     if (metric === '10+') return Code;
-    if (metric === 'AI/ML' || metric === 'IA/ML') return Brain;
-    if (metric === 'DevOps') return Cloud;
-    if (metric === 'Full Stack') return Layers;
-    if (metric === 'Agile') return Users;
-    return Code;
+    if (metric === 'AI' || metric === 'IA' || metric === 'AI/ML' || metric === 'IA/ML') return Brain;
+    if (metric === 'Cloud' || metric === 'DevOps') return Cloud;
+    if (metric === 'Core APIs' || metric === 'Full Stack') return ShieldCheck;
+    if (metric === 'Mobile') return Smartphone;
+    return Layers;
   };
 
   return (

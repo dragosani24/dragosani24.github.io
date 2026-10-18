@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { getTimelineData } from '../data/mock';
 import { ChevronDown, ChevronUp } from 'lucide-react';
@@ -38,19 +38,32 @@ const Timeline = () => {
                 </div>
 
                 <div className="timeline-content">
-                  <div className="timeline-header" onClick={() => toggleExpanded(index)}>
+                  <div
+                    className="timeline-header"
+                    role="button"
+                    tabIndex={0}
+                    aria-expanded={expandedIndex === index}
+                    aria-controls={`timeline-details-${index}`}
+                    onClick={() => toggleExpanded(index)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        toggleExpanded(index);
+                      }
+                    }}
+                  >
                     <div className="timeline-meta">
                       <span className="timeline-period">{event.period}</span>
                       <h3 className="timeline-role">{event.role}</h3>
                       <p className="timeline-company">{event.company} • {event.location}</p>
                     </div>
-                    <button className="timeline-toggle" aria-label="Toggle details">
+                    <span className="timeline-toggle" aria-hidden="true">
                       {expandedIndex === index ? <ChevronUp size={24} /> : <ChevronDown size={24} />}
-                    </button>
+                    </span>
                   </div>
 
                   {expandedIndex === index && (
-                    <div className="timeline-details">
+                    <div className="timeline-details" id={`timeline-details-${index}`}>
                       <p className="timeline-description">{event.description}</p>
 
                       <div className="timeline-achievements">
