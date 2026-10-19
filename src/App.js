@@ -7,7 +7,6 @@ import WhyHireMe from './components/WhyHireMe';
 import Timeline from './components/Timeline';
 import Skills from './components/Skills';
 import Education from './components/Education';
-import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import { Toaster } from './components/ui/toaster';
 
@@ -22,7 +21,6 @@ function App() {
           <Timeline />
           <Skills />
           <Education />
-          <ContactForm />
         </main>
         <Footer />
         <Toaster />

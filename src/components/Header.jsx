@@ -20,16 +20,14 @@ const Header = () => {
     { name: 'Why Me', href: '#why-me' },
     { name: 'Journey', href: '#journey' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Education', href: '#education' },
-    { name: 'Contact', href: '#contact' }
+    { name: 'Education', href: '#education' }
   ];
   
   const navigationEs = [
     { name: 'Por Qué', href: '#why-me' },
     { name: 'Trayectoria', href: '#journey' },
     { name: 'Habilidades', href: '#skills' },
-    { name: 'Educación', href: '#education' },
-    { name: 'Contacto', href: '#contact' }
+    { name: 'Educación', href: '#education' }
   ];
   
   const navigation = language === 'en' ? navigationEn : navigationEs;

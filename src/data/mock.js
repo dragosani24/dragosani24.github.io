@@ -6,7 +6,6 @@ export const personalInfo = {
     title: "Full Stack Developer & Systems Architect",
     location: "Sinaloa, México",
     email: "santiagoav@gmail.com",
-    phone: "+52 55 27 44 06 92",
     linkedin: "https://www.linkedin.com/in/santiagoav-0206",
     github: "https://github.com/dragosani24",
     summary: "Information Technology and Systems Expert with over 10 years of experience as a Full Stack Developer, working across both front-end and back-end development, as well as web and mobile application design and administration. Throughout my career, I have led end-to-end developments that enhance product delivery, optimize performance, and strengthen application security."
@@ -16,7 +15,6 @@ export const personalInfo = {
     title: "Desarrollador Full Stack y Arquitecto de Software",
     location: "Sinaloa, México",
     email: "santiagoav@gmail.com",
-    phone: "+52 55 27 44 06 92",
     linkedin: "https://www.linkedin.com/in/santiagoav-0206",
     github: "https://github.com/dragosani24",
     summary: "Experto en Tecnologías y Sistemas de Información con más de 10 años de experiencia como Desarrollador Full Stack, trabajando en desarrollo front-end y back-end, así como diseño y administración de aplicaciones web y móviles. A lo largo de mi carrera, he liderado desarrollos de punta a punta que mejoran la entrega de productos, optimizan el rendimiento y fortalecen la seguridad de las aplicaciones."
@@ -292,31 +290,6 @@ export const getEducationData = (lang) => {
       "TDD y Arquitectura Limpia"
     ]
   };
-};
-
-export const contact = {
-  en: {
-    title: "Get In Touch",
-    subtitle: "Let's discuss your next project or technical challenge",
-    formName: "Your Name",
-    formEmail: "Your Email",
-    formMessage: "Your Message",
-    formSubmit: "Send Message",
-    formSuccess: "Message sent successfully! I'll get back to you soon.",
-    formOpenEmail: "Your email app will open with the message ready to send.",
-    formError: "Failed to send message. Please try again."
-  },
-  es: {
-    title: "Contacto",
-    subtitle: "Hablemos sobre tu próximo proyecto o desafío técnico",
-    formName: "Tu Nombre",
-    formEmail: "Tu Email",
-    formMessage: "Tu Mensaje",
-    formSubmit: "Enviar Mensaje",
-    formSuccess: "¡Mensaje enviado exitosamente! Te responderé pronto.",
-    formOpenEmail: "Se abrirá tu aplicación de correo con el mensaje listo para enviar.",
-    formError: "Error al enviar mensaje. Por favor intenta de nuevo."
-  }
 };
 
 export const footer = {

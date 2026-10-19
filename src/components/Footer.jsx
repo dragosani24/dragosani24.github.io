@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { personalInfo, footer } from '../data/mock';
-import { Linkedin, Github, Mail, Phone } from 'lucide-react';
+import { Linkedin, Github, Mail } from 'lucide-react';
 
 const Footer = () => {
   const { language } = useLanguage();
@@ -26,10 +26,6 @@ const Footer = () => {
               <a href={`mailto:${info.email}`} className="footer-link">
                 <Mail size={18} />
                 <span>{info.email}</span>
-              </a>
-              <a href={`tel:${info.phone}`} className="footer-link">
-                <Phone size={18} />
-                <span>{info.phone}</span>
               </a>
             </div>
           </div>

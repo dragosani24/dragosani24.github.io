@@ -1,4 +1,4 @@
-import { personalInfo, contact, footer, keywords } from './mock';
+import { personalInfo, footer, keywords } from './mock';
 
 test('personalInfo tiene los datos mínimos en ambos idiomas', () => {
   ['en', 'es'].forEach((lang) => {
@@ -8,12 +8,9 @@ test('personalInfo tiene los datos mínimos en ambos idiomas', () => {
   });
 });
 
-test('los textos del formulario existen en ambos idiomas', () => {
+test('no se expone el teléfono en los datos públicos', () => {
   ['en', 'es'].forEach((lang) => {
-    ['title', 'formName', 'formEmail', 'formMessage', 'formSubmit', 'formSuccess', 'formOpenEmail', 'formError']
-      .forEach((key) => {
-        expect(contact[lang][key]).toBeTruthy();
-      });
+    expect(personalInfo[lang].phone).toBeUndefined();
   });
 });
 

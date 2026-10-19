@@ -1,6 +1,6 @@
 import { useLanguage } from '../context/LanguageContext';
 import { personalInfo, keywords } from '../data/mock';
-import { ArrowDown, MapPin, Mail, Phone, Linkedin, Github } from 'lucide-react';
+import { ArrowDown, MapPin, Mail, Linkedin, Github } from 'lucide-react';
 
 const Hero = () => {
   const { language } = useLanguage();
@@ -39,10 +39,6 @@ const Hero = () => {
           <a href={`mailto:${info.email}`} className="meta-badge meta-link">
             <Mail size={16} />
             <span>{info.email}</span>
-          </a>
-          <a href={`tel:${info.phone}`} className="meta-badge meta-link">
-            <Phone size={16} />
-            <span>{info.phone}</span>
           </a>
           <a
             href={info.linkedin}
@@ -100,12 +96,8 @@ const Hero = () => {
             {language === 'en' ? 'Technical Skills' : 'Habilidades Técnicas'}
           </a>
           <a
-            href="#contact"
+            href={`mailto:${info.email}`}
             className="btn-secondary"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection('#contact');
-            }}
           >
             {language === 'en' ? 'Get In Touch' : 'Contactar'}
           </a>
